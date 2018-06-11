@@ -15,7 +15,7 @@ This repository is for developers who interested in modifying and improving [rea
 This repository use `git submodule`, for first time clone
 
 ```sh
-$ git clone --recursive -j8 https://github.com/wkh237/react-native-fetch-blob-dev.git
+$ git clone --recursive -j8 https://github.com/joltup/react-native-fetch-blob-dev.git
 ```
 
 update submodules 
@@ -42,6 +42,8 @@ $ npm test ios
 # or
 $ npm test android
 ```
+* Note: This repo currently uses Node >=6.9.0. Make sure you have a compatible version.
+
 
 The script will initialize a new RN app named `RNFetchBlobTest` (right in the project's `/RNFetchBlobTest` folder), it will also launch the test app by the `platform` given, and a nodejs server for test. You only need to run this script once.
 
