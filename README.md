@@ -12,7 +12,7 @@ This repository is for developers who interested in modifying and improving [rea
 This repository use `git submodule`, for first time clone
 
 ```sh
-$ git clone --recursive -j8 https://github.com/joltup/react-native-fetch-blob-dev.git
+$ git clone --recursive -j8 https://github.com/plukkido/react-native-fetch-blob-dev.git
 ```
 
 update submodules 

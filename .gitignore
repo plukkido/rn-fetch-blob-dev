@@ -3,6 +3,7 @@ testconfig
 RNFetchBlobTest/
 test/test-server/public/*
 !test/test-server/public/github.png
+package-lock.json
 
 # OSX
 #
@@ -44,3 +45,6 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+
+# Secrets
+config.json

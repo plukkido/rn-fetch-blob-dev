@@ -31,8 +31,9 @@ if [ "$#" -eq 1 ]; then
   echo 'creating test app RNFetchBlobTest ..'
   react-native init "${TEST_APP_NAME}"
 fi
-# copy js files to test app folder
+# copy js files to test app folder, along with the config.json file
 cp -R test/ "${TEST_APP_PATH}/"
+cp config.json "${TEST_APP_PATH}/" || true
 node -e "var fs=require('fs'); var pkg = JSON.parse(fs.readFileSync('./RNFetchBlobTest/package.json')); pkg.rnpm = {assets : ['assets']}; fs.writeFileSync('./RNFetchBlobTest/package.json', JSON.stringify(pkg, null, 4));"
 
 # install module
@@ -49,6 +50,20 @@ react-native link
 cd ${CWD}
 cp -R ./test/assets/ ./RNFetchBlobTest/android/app/src/main/assets/
 
+# patch settings.gradle
+patch -p0 <<EOF
+--- RNFetchBlobTest/android/settings.gradle     2019-03-02 18:23:40.000000000 +0100
++++ RNFetchBlobTest/android/settings.gradle     2019-03-02 18:24:09.000000000 +0100
+@@ -2,6 +2,6 @@
+ include ':react-native-image-picker'
+ project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+ include ':react-native-fetch-blob'
+-project(':react-native-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fetch-blob/android')
++project(':react-native-fetch-blob').projectDir = new File(rootProject.projectDir, '../../src/android')
+
+ include ':app'
+EOF
+
 # start RN
 cd "${TEST_APP_PATH}"
 if [ "$#" == 4 ]; then
@@ -62,5 +77,5 @@ npm install
 # start test server
 cd "${CWD}/test-server"
 # kill existing server
-kill "$(lsof | grep :8123 | awk '{ printf $2 }')"
+kill "$(lsof | grep :8123 | awk '{ printf $2 }')" || true
 node server

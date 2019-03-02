@@ -53,7 +53,7 @@ describe('ls API test', (report, done) => {
     report(<Assert key="should have failed" expect={false} actual={true}/>)
   })
   .catch((err) => {
-    report(<Assert key="File instead of directory should fail" expect={'ENODIR'} actual={err.code}/>)
+    report(<Assert key="File instead of directory should fail" expect={'ENOTDIR'} actual={err.code}/>)
   })
 
   // Test - non-existent file (error)

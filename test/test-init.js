@@ -2,6 +2,7 @@ import RNTest from './react-native-testkit/'
 import React from 'react'
 import _ from 'lodash'
 import RNFetchBlob from 'react-native-fetch-blob'
+const config = require('./config.json');
 
 import {
   StyleSheet,
@@ -25,10 +26,10 @@ prop('FILENAME', `${Platform.OS}-0.10.0-${Date.now()}.png`)
 
 // When running in the Android emulator 10.0.2.2 is the IP to reach 127.0.0.1 of the host running the emulator
 // https://developer.android.com/studio/run/emulator-networking.html
-prop('TEST_SERVER_URL', 'http://10.0.2.2:8123')
-prop('TEST_SERVER_URL_SSL', 'https://10.0.2.2:8124')
+prop('TEST_SERVER_URL', config.TEST_SERVER_URL)
+prop('TEST_SERVER_URL_SSL', config.TEST_SERVER_URL_SSL)
 
-prop('DROPBOX_TOKEN', 'YOUR TOKEN HERE')
+prop('DROPBOX_TOKEN', config.DROPBOX_TOKEN)
 prop('styles', {
   image : {
     width: Dimensions.get('window').width*0.9,
@@ -57,7 +58,8 @@ describe('#225 upload progress should fire correctly', (report, done) => {
   }
   let upload = RNFetchBlob.fetch('POST', `${TEST_SERVER_URL}/upload`, {
     'Content-Type' : 'text/plain;BASE64'
-  }, data)
+  }, data);
+  upload.catch(err => report(<Assert key="Error" expect={null} actual={err}/>));
   upload.uploadProgress((total, now) => {
     console.log(total, now)
     fired = true;
@@ -105,7 +107,8 @@ describe('GET image from server', (report, done) => {
 // require('./test-0.10.3')
 // require('./test-0.10.5')
 // require('./test-0.10.6')
-require('./test-0.10.7')
+// require('./test-0.10.7')
+require('./test-0.11.0')
 // require('./test-background.js')
 // require('./test-stream')
 require('./test-fetch')
