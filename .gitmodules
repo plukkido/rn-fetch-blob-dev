@@ -1,3 +1,6 @@
 [submodule "react-native-fetch-blob"]
 	path = src
 	url = git@github.com:joltup/react-native-fetch-blob.git
+[submodule "src"]
+	path = src
+	url = git@github.com:plukkido/rn-fetch-blob.git
